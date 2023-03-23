@@ -11,10 +11,10 @@ Post-Deployment Script Template
 */
 IF NOT EXISTS (SELECT 1 FROM dbo.RoomTypes)
 BEGIN
-    INSERT INTO dbo.RoomTypes (Title, Description)
-    VALUES ('King Size Bed', 'A room with a king-size bed and a window.'),
-    ('Two Queen Size Beds', 'A room with two queen-size beds and a window.'),
-    ('Executive Suite', 'Two rooms, each with a king-size bed and a window.');
+    INSERT INTO dbo.RoomTypes (Title, Description, Price)
+    VALUES ('King Size Bed', 'A room with a king-size bed and a window.',100),
+    ('Two Queen Size Beds', 'A room with two queen-size beds and a window.',115),
+    ('Executive Suite', 'Two rooms, each with a king-size bed and a window.',205);
 END
 
 IF NOT EXISTS (SELECT 1 FROM dbo.Rooms)
