@@ -9,7 +9,7 @@ using System.Text;
 
 namespace HotelAppLibrary.Databases
 {
-    public class SqlDataAccess
+    public class SqlDataAccess : ISqlDataAccess
     {
         private readonly IConfiguration _config;
 
@@ -18,14 +18,14 @@ namespace HotelAppLibrary.Databases
             _config = config;
         }
 
-        public List<T> LoadData<T,U>(string sqlStatement,
+        public List<T> LoadData<T, U>(string sqlStatement,
                                      U parameters,
                                      string connectionStringName,
-                                     dynamic options = null)
+                                     bool isStoredProcedure = false)
         {
             CommandType commandType = CommandType.Text;
 
-            if (options.IsStoredProcedure != null && options.IsStoredProcedure == true)
+            if (isStoredProcedure == true)
             {
                 commandType = CommandType.StoredProcedure;
             }
@@ -42,11 +42,11 @@ namespace HotelAppLibrary.Databases
         public void SaveData<T>(string sqlStatement,
                                 T parameters,
                                 string connectionStringName,
-                                dynamic options = null)
+                                bool isStoredProcedure = false)
         {
             CommandType commandType = CommandType.Text;
 
-            if (options.IsStoredProcedure != null && options.IsStoredProcedure == true)
+            if (isStoredProcedure == true)
             {
                 commandType = CommandType.StoredProcedure;
             }
