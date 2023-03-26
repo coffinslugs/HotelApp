@@ -23,5 +23,18 @@ namespace HotelAppLibrary.Data
                                                  connectionStringName,
                                                  true);
         }
+
+        public void CreateGuest(GuestModel guest)
+        {
+            _db.SaveData("dbo.spGuests_CreateGuest",
+                         new { guest.FirstName, guest.LastName },
+                         connectionStringName,
+                         true);
+        }
+
+        public void CreateBooking()
+        {
+            
+        }
     }
 }
