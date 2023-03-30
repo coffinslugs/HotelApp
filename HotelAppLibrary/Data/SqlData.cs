@@ -29,26 +29,36 @@ namespace HotelAppLibrary.Data
                               string lastName,
                               DateTime startDate,
                               DateTime endDate,
-                              int roomType)
+                              int roomTypeId)
         {
             GuestModel guest = _db.LoadData<GuestModel, dynamic>("dbo.spGuests_CreateGuest",
                                                                  new { firstName, lastName },
                                                                  connectionStringName,
                                                                  true).First();
 
+            RoomTypeModel roomType = _db.LoadData<RoomTypeModel, dynamic>("select * from dbo.RoomTypes where Id = @Id",
+                                                                          new { Id = roomTypeId },
+                                                                          connectionStringName,
+                                                                          false).First();
+
+            TimeSpan timeStaying = endDate.Date.Subtract(startDate.Date);
+
+            List<RoomModel> availableRooms = _db.LoadData<RoomModel, dynamic>("dbo.spRooms_GetAvailableRooms",
+                                                                              new { startDate, endDate, roomTypeId },
+                                                                              connectionStringName,
+                                                                              true);
+            _db.SaveData("dbo.spBookings_Insert",
+                         new
+                         {
+                             roomId = availableRooms.First().Id,
+                             guestId = guest.Id,
+                             startDate = startDate,
+                             endDate = endDate,
+                             totalCost = timeStaying.Days * roomType.Price
+                         },
+                         connectionStringName,
+                         true);
         }
 
-        //public void CreateGuest(GuestModel guest)
-        //{
-        //  _db.SaveData("dbo.spGuests_CreateGuest",
-        //                 new { guest.FirstName, guest.LastName },
-        //                 connectionStringName,
-        //                 true);
-        //}
-
-        //public void CreateBooking()
-        //{
-            
-        //}
     }
 }
