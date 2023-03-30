@@ -2,6 +2,7 @@
 using HotelAppLibrary.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace HotelAppLibrary.Data
@@ -24,17 +25,30 @@ namespace HotelAppLibrary.Data
                                                  true);
         }
 
-        public void CreateGuest(GuestModel guest)
+        public void BookGuest(string firstName,
+                              string lastName,
+                              DateTime startDate,
+                              DateTime endDate,
+                              int roomType)
         {
-            _db.SaveData("dbo.spGuests_CreateGuest",
-                         new { guest.FirstName, guest.LastName },
-                         connectionStringName,
-                         true);
+            GuestModel guest = _db.LoadData<GuestModel, dynamic>("dbo.spGuests_CreateGuest",
+                                                                 new { firstName, lastName },
+                                                                 connectionStringName,
+                                                                 true).First();
+
         }
 
-        public void CreateBooking()
-        {
+        //public void CreateGuest(GuestModel guest)
+        //{
+        //  _db.SaveData("dbo.spGuests_CreateGuest",
+        //                 new { guest.FirstName, guest.LastName },
+        //                 connectionStringName,
+        //                 true);
+        //}
+
+        //public void CreateBooking()
+        //{
             
-        }
+        //}
     }
 }
