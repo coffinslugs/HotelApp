@@ -71,6 +71,7 @@
     <Build Include="dbo\Stored Procedures\spGuests_InsertGuest.sql" />
     <Build Include="dbo\Stored Procedures\spRooms_GetAvailableRooms.sql" />
     <Build Include="dbo\Stored Procedures\spBookings_Insert.sql" />
+    <Build Include="dbo\Stored Procedures\spBookings_FindBookings.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="HotelAppDB.refactorlog" />

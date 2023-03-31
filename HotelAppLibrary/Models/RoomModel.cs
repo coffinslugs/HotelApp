@@ -8,6 +8,6 @@ namespace HotelAppLibrary.Models
     {
         public int Id { get; set; }
         public int RoomTypeId { get; set; }
-        public int RoomNumber { get; set; }
+        public string RoomNumber { get; set; }
     }
 }
