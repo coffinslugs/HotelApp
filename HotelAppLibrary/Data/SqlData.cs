@@ -25,28 +25,28 @@ namespace HotelAppLibrary.Data
                                                  true);
         }
 
-        public void BookGuest(string firstName,
-                              string lastName,
-                              DateTime startDate,
-                              DateTime endDate,
-                              int roomTypeId)
+        public void BookGuest()
         {
+            // Create Guest
             GuestModel guest = _db.LoadData<GuestModel, dynamic>("dbo.spGuests_CreateGuest",
                                                                  new { firstName, lastName },
                                                                  connectionStringName,
                                                                  true).First();
-
+            // Get Room Type
             RoomTypeModel roomType = _db.LoadData<RoomTypeModel, dynamic>("select * from dbo.RoomTypes where Id = @Id",
                                                                           new { Id = roomTypeId },
                                                                           connectionStringName,
                                                                           false).First();
-
+            // Calculate how long they want to stay
             TimeSpan timeStaying = endDate.Date.Subtract(startDate.Date);
 
+            // Get available rooms for date range selected
             List<RoomModel> availableRooms = _db.LoadData<RoomModel, dynamic>("dbo.spRooms_GetAvailableRooms",
                                                                               new { startDate, endDate, roomTypeId },
                                                                               connectionStringName,
                                                                               true);
+
+            // Create Booking
             _db.SaveData("dbo.spBookings_Insert",
                          new
                          {
