@@ -9,7 +9,7 @@ BEGIN
 
 	SELECT r.*
 	FROM dbo.Rooms r
-	INNER JOIN dbo.RoomTypes rt ON rt.id = r.RoomTypeId
+	INNER JOIN dbo.RoomTypes rt ON rt.Id = r.RoomTypeId
 	WHERE r.RoomTypeId = @roomTypeId
 		AND r.Id NOT IN (
 		SELECT b.RoomId 

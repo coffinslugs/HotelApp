@@ -25,10 +25,10 @@ namespace HotelAppLibrary.Data
                                                  true);
         }
 
-        public void BookGuest()
+        public void BookGuest(string firstName, string lastName, DateTime startDate, DateTime endDate, int roomTypeId)
         {
             // Create Guest
-            GuestModel guest = _db.LoadData<GuestModel, dynamic>("dbo.spGuests_CreateGuest",
+            GuestModel guest = _db.LoadData<GuestModel, dynamic>("dbo.spGuests_InsertGuest",
                                                                  new { firstName, lastName },
                                                                  connectionStringName,
                                                                  true).First();
