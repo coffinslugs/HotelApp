@@ -7,7 +7,7 @@ using System.Text;
 
 namespace HotelAppLibrary.Data
 {
-    public class SqlData
+    public class SqlData : IDatabaseData
     {
         private readonly ISqlDataAccess _db;
         private const string connectionStringName = "SqlDb";
@@ -19,10 +19,10 @@ namespace HotelAppLibrary.Data
 
         public List<RoomTypeModel> GetAvailableRoomTypes(DateTime startDate, DateTime endDate)
         {
-           return _db.LoadData<RoomTypeModel, dynamic>("dbo.spRoomTypes_GetAvailableTypes",
-                                                 new { startDate, endDate },
-                                                 connectionStringName,
-                                                 true);
+            return _db.LoadData<RoomTypeModel, dynamic>("dbo.spRoomTypes_GetAvailableTypes",
+                                                  new { startDate, endDate },
+                                                  connectionStringName,
+                                                  true);
         }
 
         public void BookGuest(string firstName, string lastName, DateTime startDate, DateTime endDate, int roomTypeId)
@@ -70,8 +70,8 @@ namespace HotelAppLibrary.Data
 
         public void CheckInGuest(int bookingId)
         {
-            
-            _db.SaveData("dbo.spBookings_CheckIn", new { Id = bookingId }, connectionStringName,true);
+
+            _db.SaveData("dbo.spBookings_CheckIn", new { Id = bookingId }, connectionStringName, true);
         }
 
     }
