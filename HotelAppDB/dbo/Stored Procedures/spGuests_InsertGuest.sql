@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[spGuests_CreateGuest]
+﻿CREATE PROCEDURE [dbo].[spGuests_InsertGuest]
 	@firstName nvarchar(50),
 	@lastName nvarchar(50)
 AS
