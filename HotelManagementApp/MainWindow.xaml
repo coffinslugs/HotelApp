@@ -5,8 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:HotelManagementApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" FontSize="20">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
 
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" Margin="5">
+            <TextBlock Width="auto">Enter Last Name:</TextBlock>
+            <TextBox x:Name="lastName" MinWidth="200" Margin="5"></TextBox>
+        </StackPanel>
+
+        <Button x:Name="searchBookings" Grid.Row="0" Grid.Column="1" Margin="5" Width="200" HorizontalAlignment="Left" Click="searchBookings_Click">
+            Search Bookings
+        </Button>
+        
     </Grid>
 </Window>
