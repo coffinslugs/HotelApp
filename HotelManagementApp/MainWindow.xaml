@@ -15,7 +15,6 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
@@ -24,14 +23,59 @@
 
         <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" Margin="5">
             <TextBlock Width="auto">Enter Last Name:</TextBlock>
-            <TextBox x:Name="lastName" MinWidth="200" Margin="5"></TextBox>
+            <TextBox x:Name="lastName" MinWidth="200" Margin="5"/>
+            <Button x:Name="searchBookings" Margin="5" Padding="2"
+                Click="searchBookings_Click">
+                Search Bookings
+            </Button>
+
         </StackPanel>
 
-        <Button x:Name="searchBookings" Grid.Row="1" Grid.Column="1" 
-                Margin="5" Width="200" HorizontalAlignment="Left" 
-                Click="searchBookings_Click">
-            Search Bookings
-        </Button>
+        <ListBox x:Name="resultsList" Grid.Row="2" Grid.Column="0"
+                 Margin="5 20 5 5" Width="600" ItemsSource="{Binding}" 
+                 MaxHeight="300"
+                 ScrollViewer.VerticalScrollBarVisibility="Auto">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        
+                        <StackPanel Orientation="Horizontal" Grid.Row="0">
+                            <TextBlock FontWeight="Bold" Margin="5">Reservation: </TextBlock>
+                            <TextBlock Text="{Binding FirstName}" Margin="5"/>
+                            <TextBlock Text="{Binding LastName}" Margin="5"/>
+                        </StackPanel>
+                        <Button Margin="5" Padding="10" Grid.Row="0" Grid.Column="1" 
+                                Grid.RowSpan="4" VerticalAlignment="Center">
+                            Check In
+                        </Button>
+                        <StackPanel Orientation="Horizontal" Grid.Row="1">
+                            <TextBlock FontWeight="Bold" Margin="5">Room: </TextBlock>
+                            <TextBlock Text="{Binding Title}" Margin="5"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Grid.Row="2">
+                            <TextBlock FontWeight="Bold" Margin="5">Room Number: </TextBlock>
+                            <TextBlock Text="{Binding RoomNumber}" Margin="5"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Grid.Row="3">
+                            <TextBlock FontWeight="Bold" Margin="5">Total Cost:</TextBlock>
+                            <TextBlock Text="{Binding TotalCost, StringFormat='c'}" Margin="5"/>
+                        </StackPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
         
     </Grid>
 </Window>

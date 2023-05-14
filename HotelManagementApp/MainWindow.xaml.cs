@@ -33,6 +33,7 @@ namespace HotelManagementApp
         private void searchBookings_Click(object sender, RoutedEventArgs e)
         {
             List<BookingFullModel> bookings = _db.SearchBookings(lastName.Text);
+            resultsList.ItemsSource = bookings;
         }
     }
 }
