@@ -28,6 +28,7 @@ namespace HotelAppWebUI
             services.AddRazorPages();
             services.AddTransient<IDatabaseData, SqlData>(); // Transient Creates instance everytime we ask for it
             services.AddTransient<ISqlDataAccess, SqlDataAccess>();
+            services.AddTransient<ISqliteDataAccess, SqliteDataAccess>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
