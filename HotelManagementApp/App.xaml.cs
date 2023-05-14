@@ -29,7 +29,6 @@ namespace HotelManagementApp
             services.AddTransient<CheckInForm>();
             services.AddTransient<ISqlDataAccess, SqlDataAccess>();
             services.AddTransient<ISqliteDataAccess, SqliteDataAccess>();
-            services.AddTransient<IDatabaseData, SqlData>();
 
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
@@ -38,6 +37,21 @@ namespace HotelManagementApp
             IConfiguration config = builder.Build();
 
             services.AddSingleton(config);
+
+            string dbChoice = config.GetValue<string>("DatabaseChoise").ToLower();
+            if (dbChoice == "sql")
+            {
+                services.AddTransient<IDatabaseData, SqlData>(); // Transient Creates instance everytime we ask for it
+            }
+            else if (dbChoice == "sqlite")
+            {
+                services.AddTransient<IDatabaseData, SqliteData>();
+            }
+            else
+            {
+                // Fallback / Default value
+                services.AddTransient<IDatabaseData, SqlData>();
+            }
 
             serviceProvider = services.BuildServiceProvider();
             var mainWindow = serviceProvider.GetService<MainWindow>();

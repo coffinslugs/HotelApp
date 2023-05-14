@@ -26,7 +26,22 @@ namespace HotelAppWebUI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
-            services.AddTransient<IDatabaseData, SqlData>(); // Transient Creates instance everytime we ask for it
+
+            string dbChoice = Configuration.GetValue<string>("DatabaseChoise").ToLower();
+            if (dbChoice == "sql")
+            {
+                services.AddTransient<IDatabaseData, SqlData>(); // Transient Creates instance everytime we ask for it
+            }
+            else if (dbChoice == "sqlite")
+            {
+                services.AddTransient<IDatabaseData, SqliteData>();
+            }
+            else
+            {
+                // Fallback / Default value
+                services.AddTransient<IDatabaseData, SqlData>();
+            }
+
             services.AddTransient<ISqlDataAccess, SqlDataAccess>();
             services.AddTransient<ISqliteDataAccess, SqliteDataAccess>();
         }
