@@ -1,6 +1,7 @@
-﻿CREATE PROCEDURE [dbo].[spBookings_FindBookings]
-	@lastName nvarchar,
+﻿CREATE PROCEDURE [dbo].[spBookings_SearchBookings]
+	@lastName nvarchar(50),
 	@startDate date
+
 AS
 BEGIN
 	SET NOCOUNT ON;
@@ -12,7 +13,7 @@ BEGIN
 		INNER JOIN dbo.Guests g ON b.GuestId = g.Id
 		INNER JOIN dbo.Rooms r ON b.RoomId = r.Id
 		INNER JOIN dbo.RoomTypes rt ON r.RoomTypeId = rt.Id
-	WHERE b.StartDate = @startDate
-		AND g.LastName = @lastName
+	WHERE g.LastName = @lastName
+		AND b.StartDate = @startDate
 		AND b.CheckedIn = 0;
 END

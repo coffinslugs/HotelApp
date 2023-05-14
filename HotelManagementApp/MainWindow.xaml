@@ -15,15 +15,21 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" Margin="5">
+        <TextBlock Grid.Row="0" Grid.Column="0"
+                   Text="Search for Guest" FontSize="28" Margin="2" />
+
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0" Margin="5">
             <TextBlock Width="auto">Enter Last Name:</TextBlock>
             <TextBox x:Name="lastName" MinWidth="200" Margin="5"></TextBox>
         </StackPanel>
 
-        <Button x:Name="searchBookings" Grid.Row="0" Grid.Column="1" Margin="5" Width="200" HorizontalAlignment="Left" Click="searchBookings_Click">
+        <Button x:Name="searchBookings" Grid.Row="1" Grid.Column="1" 
+                Margin="5" Width="200" HorizontalAlignment="Left" 
+                Click="searchBookings_Click">
             Search Bookings
         </Button>
         

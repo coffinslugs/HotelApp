@@ -8,7 +8,7 @@ namespace HotelAppLibrary.Data
     {
         void BookGuest(string firstName, string lastName, DateTime startDate, DateTime endDate, int roomTypeId);
         void CheckInGuest(int bookingId);
-        List<BookingFullModel> FindBookings(string lastName);
+        List<BookingFullModel> SearchBookings(string lastName);
         List<RoomTypeModel> GetAvailableRoomTypes(DateTime startDate, DateTime endDate);
         RoomTypeModel GetRoomTypeById(int id);
     }
