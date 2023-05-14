@@ -38,7 +38,7 @@ namespace HotelManagementApp
 
             services.AddSingleton(config);
 
-            string dbChoice = config.GetValue<string>("DatabaseChoise").ToLower();
+            string dbChoice = config.GetValue<string>("DatabaseChoice").ToLower();
             if (dbChoice == "sql")
             {
                 services.AddTransient<IDatabaseData, SqlData>(); // Transient Creates instance everytime we ask for it
