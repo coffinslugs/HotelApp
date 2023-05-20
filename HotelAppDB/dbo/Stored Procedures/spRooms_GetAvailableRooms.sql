@@ -17,5 +17,5 @@ BEGIN
 		WHERE (@startDate < b.StartDate AND @endDate > b.EndDate)
 			OR (b.StartDate <= @endDate AND @endDate < b.EndDate)
 			OR (b.StartDate <= @startDate AND @startDate < b.EndDate)
-		)
+		);
 END
