@@ -17,7 +17,7 @@ namespace HotelAppLibrary.Data
             _db = db;
         }
 
-        public void BookGuest(string firstName, string lastName, DateTime startDate, DateTime endDate, int roomTypeId)
+        public void BookGuest(string firstName, string lastName, DateTime startDate, DateTime endDate, int roomTypeId) 
         {
             string sql = @"SELECT 1 FROM Guests WHERE FirstName = @firstName AND LastName = @lastName";
             int results = _db.LoadData<dynamic, dynamic>(sql,
@@ -124,7 +124,29 @@ namespace HotelAppLibrary.Data
 
         public List<BookingFullModel> SearchBookings(string lastName)
         {
-            throw new NotImplementedException();
+            string sql = @"SELECT [b].[Id], [b].[RoomId], [b].[GuestId], [b].[StartDate], [b].[EndDate], [b].[CheckedIn], [b].[TotalCost],
+		                    [g].[FirstName], [g].[LastName],
+		                    [r].[RoomTypeId], [r].[RoomNumber],
+		                    [rt].[Title], [rt].[Description], [rt].[Price]
+	                        FROM Bookings b
+		                        INNER JOIN Guests g ON b.GuestId = g.Id
+		                        INNER JOIN Rooms r ON b.RoomId = r.Id
+		                        INNER JOIN RoomTypes rt ON r.RoomTypeId = rt.Id
+	                        WHERE g.LastName = @lastName
+		                        AND b.StartDate = @startDate
+		                        AND b.CheckedIn = 0;";
+
+            var output = _db.LoadData<BookingFullModel, dynamic>(sql,
+                                                           new { lastName, startDate = DateTime.Now.Date },
+                                                           connectionStringName);
+            
+            output.ForEach(x =>
+            {
+                x.Price = x.Price / 100;
+                x.TotalCost = x.TotalCost / 100;
+            });
+
+            return output;
         }
     }
 }
